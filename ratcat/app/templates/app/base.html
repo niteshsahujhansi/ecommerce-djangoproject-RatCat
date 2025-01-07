@@ -19,8 +19,17 @@
     <!--Custom CSS-->
     <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
 
+    <link
+  rel="stylesheet"
+  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+    />
+
 </head>
 <body>
+  <!-- <div id="autocomplete" class="autocomplete">
+    <input class="autocomplete-input" />
+    <ul class="autocomplete-result-list"></ul>
+  </div> -->
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
@@ -61,8 +70,8 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li> -->
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form method="get" action="/search/" class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" id="search">
               <button class="btn btn-warning" type="submit">Search</button>
             </form>
 
@@ -225,5 +234,30 @@
   <script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
   <script src="{% static 'app/js/all.min.js' %}"></script>
   <script src="{% static 'app/js/myscript.js' %}"></script>
+
+  <!-- <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+  <script>
+    new Autocomplete('#autocomplete', {
+
+      search : input =>{
+        console.log(input)
+        const url = `/search/?search=${input}`
+        return new Promise(resolve =>{
+          fetch(url)
+          .then(responce => response.json())
+          .then(data =>{
+            console.log(data)
+            resolve(data.data)
+
+          })
+        })
+      },
+      onSubmit : result => {
+        window.open(`/search/?search=${result}`)
+      }
+    })
+
+  </script> -->
 </body>
 </html>

@@ -4,6 +4,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.views import View
+# from numpy import product
 
 from .models import Customer, Product, OrderPlaced, cart
 from .forms import CustomerRegistrationForm, CustomerProfileForm
@@ -21,6 +22,40 @@ class ProductView(View):
         bottomwears = Product.objects.filter(category='BW')
         mobiles = Product.objects.filter(category='M')
         return render(request, 'app/home.html', {'topwears': topwears, 'bottomwears': bottomwears, 'mobiles': mobiles})
+
+def searchMatch(query, item):
+        if query in item.tital.lower() or query in item.category.lower() or query in item.description.lower() :
+            return True
+        else:
+            return False 
+
+class SearchView(View):
+
+    def get(self, request):
+        query = request.GET.get('search')
+
+        # payload = []
+        # if query:
+        #     search_objects = Product.objects.filter(tital__icontains=query)
+
+        #     for search_object in search_objects:
+        #         payload.append(search_object.tital)
+        
+        # print(payload)
+        # return JsonResponse({'status':200, 'data':payload})
+
+        topwearstemp = Product.objects.all()
+        topwears = [item for item in topwearstemp if searchMatch(query, item)]
+
+        # bottomwearstemp = Product.objects.filter(category='BW')
+        # bottomwears = [item for item in bottomwearstemp if searchMatch(query, item)]
+
+        # mobilestemp = Product.objects.filter(category='M')
+        # mobiles = [item for item in mobilestemp if searchMatch(query, item)]
+
+
+        return render(request, 'app/search.html', {'products': topwears})
+        # return render(request, 'app/search.html', {'topwears': topwears, 'bottomwears': bottomwears, 'mobiles': mobiles})
 
 
 # def product_detail(request):

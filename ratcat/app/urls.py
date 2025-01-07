@@ -9,6 +9,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.home, name='home'),
     path('', views.ProductView.as_view(), name='home'),
+    path('search/', views.SearchView.as_view(), name='search'),
     # path('product-detail/', views.product_detail, name='product-detail'),
 
     path('product-detail/<int:pk>', views.ProductDetailView.as_view(), name='product-detail'),
@@ -59,4 +60,7 @@ urlpatterns = [
     
     path('checkout/', views.checkout, name='checkout'),
     path('paymentdone/', views.payment_done, name='paymentdone'),
+    
+
+
 ]  + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
